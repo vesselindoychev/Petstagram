@@ -78,3 +78,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+
+    @property
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"

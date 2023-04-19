@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="d-flex">
+            <div class="d-inline p-2 w-50">
+                <img src="{{ object.picture }}"
+                     class="w-50 rounded mx-auto d-block" alt="{{ object.description }}">
+            </div>
+            <div class="d-inline p-2 w-50">
+                <div class="d-flex flex-column">
+                    <h5><u>Name:</u> {{ object.get_full_name }}</h5>
+
+                    {% if object.date_of_birth %}
+                        <h5><u>Birthdate:</u> {{ object.date_of_birth }}</h5>
+                    {% endif %}
+
+                    <h5><u>Email:</u> {{ request.user.email }}</h5>
+
+                    {% if object.gender %}
+                        <h5><u>Gender:</u> {{ object.gender }}</h5>
+                    {% endif %}
+
+                    {% if object.description %}
+                        <h5><u>Description:</u> {{ object.description }}</h5>
+                    {% endif %}
+                </div>
+                <p class="mt-2">Total Images: {{ total_pet_images }}</p>
+                <p class="mt-2">Total Likes: {{ total_pet_photos_likes }}</p>
+                <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom %}
+    <div class="container mb-4">
+        <div class="d-flex justify-content-start mb-5">
+            {% for pet in pets %}
+                <!-- Info for First Pet -->
+                <div style="width: 18rem;">
+                    <h5>{{ pet.name }}</h5>
+                    <p class="mt-2">Age: {{ pet.age }}</p>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
