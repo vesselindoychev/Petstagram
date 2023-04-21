@@ -26,8 +26,10 @@
                 </div>
                 <p class="mt-2">Total Images: {{ total_pet_images }}</p>
                 <p class="mt-2">Total Likes: {{ total_pet_photos_likes }}</p>
-                <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                {% if is_owner %}
+                    <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -40,8 +42,10 @@
                 <div style="width: 18rem;">
                     <h5>{{ pet.name }}</h5>
                     <p class="mt-2">Age: {{ pet.age }}</p>
-                    <a href="#" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    {% if is_owner %}
+                        <a href="{% url 'edit pet' pet.pk %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete pet' pet.pk %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

@@ -3,7 +3,7 @@ from django.urls import path
 from petstagram.main.views.generic import HomeView, DashboardView
 from petstagram.main.views.pet_photos import CreatePetPhotoView, PetPhotoDetailsView, EditPetPhotoView, \
     DeletePetPhotoView
-from petstagram.main.views.pets import CreatePetView
+from petstagram.main.views.pets import CreatePetView, EditPetView, DeletePetView
 
 urlpatterns = [
     # Home
@@ -14,6 +14,8 @@ urlpatterns = [
 
     # Pets
     path('pet/add/', CreatePetView.as_view(), name='create pet'),
+    path('pet/edit/<int:pk>/', EditPetView.as_view(), name='edit pet'),
+    path('pet/delete/<int:pk>/', DeletePetView.as_view(), name='delete pet'),
 
     # PetPhotos
     path('photo/add/', CreatePetPhotoView.as_view(), name='create pet photo'),
