@@ -17,7 +17,7 @@
                                 <h5 class="card-title">{{ pet.name }}, age: {{ pet.age }}</h5>
                             {% endfor %}
                             <p class="card-text">{{ pet_photo.description|truncatechars:30 }}</p>
-                            <a href="#" class="btn btn-primary">See details</a>
+                            <a href="{% url 'pet photo details' pet_photo.pk %}" class="btn btn-primary">See details</a>
                         </div>
                     </div>
                 {% endfor %}

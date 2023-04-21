@@ -16,3 +16,18 @@ class CreatePetPhotoView(views.CreateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard')
+
+
+class PetPhotoDetailsView(views.DetailView):
+    model = PetPhoto
+    template_name = 'main/photo_details.html'
+    context_object_name = 'pet_photo'
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('tagged_pets')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = self.object.user == self.request.user
+
+        return context

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from petstagram.main.views.generic import HomeView, DashboardView
-from petstagram.main.views.pet_photos import CreatePetPhotoView
+from petstagram.main.views.pet_photos import CreatePetPhotoView, PetPhotoDetailsView
 from petstagram.main.views.pets import CreatePetView
 
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
 
     # PetPhotos
     path('photo/add/', CreatePetPhotoView.as_view(), name='create pet photo'),
+    path('photo/details/<int:pk>/', PetPhotoDetailsView.as_view(), name='pet photo details'),
 ]
