@@ -78,7 +78,7 @@ class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
 
     class Meta:
         model = Profile
-        exclude = ('user', )
+        exclude = ('user',)
         current_year = datetime.datetime.now().year
         YEARS = [i for i in range(1920, int(current_year) + 1)]
 

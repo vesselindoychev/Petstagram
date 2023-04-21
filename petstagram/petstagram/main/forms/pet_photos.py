@@ -25,3 +25,19 @@ class CreatePetPhotoForm(BootstrapFormMixin, forms.ModelForm):
             ),
             'tagged_pets': forms.SelectMultiple()
         }
+
+
+class EditPetPhotoForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+    class Meta:
+        model = PetPhoto
+        fields = ('description', 'tagged_pets', )
+
+        widgets = {
+            'description': forms.Textarea(
+                attrs={'rows': 3}
+            )
+        }
