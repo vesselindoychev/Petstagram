@@ -2,7 +2,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from petstagram.main.forms.pet_photos import CreatePetPhotoForm, EditPetPhotoForm
+from petstagram.main.forms.pet_photos import CreatePetPhotoForm, EditPetPhotoForm, DeletePetPhotoForm
 from petstagram.main.models import PetPhoto
 
 
@@ -26,6 +26,15 @@ class EditPetPhotoView(views.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('pet photo details', kwargs={'pk': self.object.pk})
+
+
+class DeletePetPhotoView(views.DeleteView):
+    model = PetPhoto
+    form_class = DeletePetPhotoForm
+    template_name = 'main/photo_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('dashboard')
 
 
 class PetPhotoDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):

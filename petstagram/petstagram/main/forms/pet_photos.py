@@ -34,10 +34,21 @@ class EditPetPhotoForm(BootstrapFormMixin, forms.ModelForm):
 
     class Meta:
         model = PetPhoto
-        fields = ('description', 'tagged_pets', )
+        fields = ('description', 'tagged_pets',)
 
         widgets = {
             'description': forms.Textarea(
                 attrs={'rows': 3}
             )
         }
+
+
+class DeletePetPhotoForm(forms.ModelForm):
+
+    def save(self, commit=True):
+        self.instance.delete()
+        return self.instance
+
+    class Meta:
+        model = PetPhoto
+        fields = ()
