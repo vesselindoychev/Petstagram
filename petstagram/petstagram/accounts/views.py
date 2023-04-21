@@ -3,9 +3,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from petstagram.accounts.forms import CreateProfileForm, EditProfileForm
+from petstagram.accounts.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
 from petstagram.accounts.models import Profile
 from petstagram.main.models import Pet, PetPhoto
+
+
+class ChangePasswordView(auth_views.PasswordChangeView):
+    template_name = 'accounts/change_password.html'
+    success_url = reverse_lazy('password redirect')
 
 
 class RegisterUserView(views.CreateView):
@@ -57,5 +62,10 @@ class EditProfileView(views.UpdateView):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
 
 
-class ChangePasswordView:
-    pass
+class DeleteProfileView(views.DeleteView):
+    model = Profile
+    form_class = DeleteProfileForm
+    template_name = 'accounts/profile_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('show home')

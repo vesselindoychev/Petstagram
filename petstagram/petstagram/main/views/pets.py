@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from petstagram.main.forms.pets import CreatePetForm, EditPetForm, DeletePetForm
+from petstagram.main.forms.pets import CreatePetForm, EditPetForm
 from petstagram.main.models import Pet
 
 
