@@ -33,6 +33,10 @@ class LoginUserView(auth_views.LoginView):
         return reverse_lazy('dashboard')
 
 
+class LogoutUserView(auth_views.LogoutView):
+    pass
+
+
 class DetailsProfileView(views.DetailView):
     model = Profile
     template_name = 'accounts/profile_details.html'

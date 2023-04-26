@@ -2,10 +2,11 @@ from django.urls import path, reverse_lazy
 from django.views.generic import RedirectView
 
 from petstagram.accounts.views import LoginUserView, RegisterUserView, DetailsProfileView, EditProfileView, \
-    ChangePasswordView, DeleteProfileView
+    ChangePasswordView, DeleteProfileView, LogoutUserView
 
 urlpatterns = [
     path('login/', LoginUserView.as_view(), name='login'),
+    path('logout/', LogoutUserView.as_view(), name='logout'),
     path('create-profile/', RegisterUserView.as_view(), name='register'),
     path('profile/<int:pk>/', DetailsProfileView.as_view(), name='profile details'),
     path('edit-profile/<int:pk>/', EditProfileView.as_view(), name='edit profile'),
