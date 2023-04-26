@@ -73,8 +73,9 @@ class PetPhoto(models.Model):
         auto_now_add=True,
     )
 
-    likes = models.IntegerField(
-        default=0,
+    likes = models.ManyToManyField(
+        UserModel,
+        related_name='pet_photo_like',
     )
 
     tagged_pets = models.ManyToManyField(
@@ -85,3 +86,6 @@ class PetPhoto(models.Model):
         UserModel,
         on_delete=models.CASCADE,
     )
+
+    def number_of_likes(self):
+        return self.likes.count()

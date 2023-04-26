@@ -1,4 +1,6 @@
 from django.contrib.auth import mixins as auth_mixins
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -49,4 +51,32 @@ class PetPhotoDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = self.object.user == self.request.user
 
+        likes_connected = get_object_or_404(
+            PetPhoto,
+            id=self.kwargs['pk']
+        )
+        liked = False
+
+        if likes_connected.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
+        context['number_of_likes'] = likes_connected.number_of_likes()
+        context['photo_is_liked'] = liked
         return context
+
+
+def like_photo(request, pk):
+    photo = get_object_or_404(
+        PetPhoto,
+        id=request.POST.get('pet_photo_id')
+    )
+
+    if photo.likes.filter(id=request.user.id).exists():
+        photo.likes.remove(request.user)
+    else:
+        photo.likes.add(request.user)
+    # photo.likes += 1
+    # photo.save()
+
+    # return redirect('pet photo details', pk)
+    return HttpResponseRedirect(reverse_lazy('pet photo details', args=[str(pk)]))
